@@ -69,6 +69,16 @@ func (ta *TextureAtlas) MustGetSubTexture(name string) *SubTexture {
 	return st
 }
 
+// EnumerateSubTextures returns a map that contains all subtextures.
+func (ta *TextureAtlas) EnumerateSubTextures() map[string]*SubTexture {
+	m := map[string]*SubTexture{}
+	for _, st := range ta.SubTextures {
+		m[st.Name] = st
+	}
+
+	return m
+}
+
 // Encode encodes a TextureAtlas as XML.
 func (ta *TextureAtlas) Encode() ([]byte, error) {
 	return xml.Marshal(ta)
