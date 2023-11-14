@@ -2,6 +2,7 @@ package sparrow
 
 import (
 	"encoding/xml"
+	"io/fs"
 )
 
 type TextureAtlas struct {
@@ -22,6 +23,21 @@ func ParseTextureAtlas(xmlData []byte) (*TextureAtlas, error) {
 	}
 
 	return &atlas, nil
+}
+
+// ParseTextureAtlasFromFS parses a Sparrow v2 texture atlas in XML format from a filesystem.
+func ParseTextureAtlasFromFS(fsys fs.FS, path string) (*TextureAtlas, error) {
+	xmlData, err := fs.ReadFile(fsys, path)
+	if err != nil {
+		return nil, err
+	}
+
+	atlas, err := ParseTextureAtlas(xmlData)
+	if err != nil {
+		return nil, err
+	}
+
+	return atlas, nil
 }
 
 // Encode encodes a TextureAtlas as XML.
