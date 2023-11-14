@@ -69,13 +69,15 @@ func main() {
 			panic(err)
 		}
 
-		for _, st := range atlas.SubTextures {
-			if st.Name == opts.SubTexture {
-				if err := extractSubImage(st); err != nil {
-					spin.Fail(err)
-					panic(err)
-				}
-			}
+		st, err := atlas.GetSubTexture(opts.SubTexture)
+		if err != nil {
+			spin.Fail(err)
+			panic(err)
+		}
+
+		if err := extractSubImage(st); err != nil {
+			spin.Fail(err)
+			panic(err)
 		}
 
 		spin.Success()
