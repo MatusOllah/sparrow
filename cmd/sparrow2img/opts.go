@@ -7,5 +7,5 @@ var opts struct {
 	} `positional-args:"yes" required:"yes"`
 	Verbose    bool   `short:"v" long:"verbose" description:"Print verbose information"`
 	Output     string `short:"o" long:"output" description:"Output directory" default:"out/"`
-	SubTexture string `short:"t" long:"sub-texture" description:"Extract a specific frame / subtexture"`
+	SubTexture string `short:"t" long:"sub-texture" description:"Extract a specific frame / sub-texture"`
 }
