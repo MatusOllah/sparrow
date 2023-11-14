@@ -9,7 +9,7 @@ import (
 	"slices"
 )
 
-var ErrSubTextureDoesNotExist error = errors.New("subtexture does not exist")
+var ErrSubTextureDoesNotExist error = errors.New("sub-texture does not exist")
 
 type TextureAtlas struct {
 	ImagePath   string        `xml:"imagePath,attr"`
@@ -69,7 +69,7 @@ func (ta *TextureAtlas) MustGetSubTexture(name string) *SubTexture {
 	return st
 }
 
-// EnumerateSubTextures returns a map that contains all subtextures.
+// EnumerateSubTextures returns a map that contains all sub-textures.
 func (ta *TextureAtlas) EnumerateSubTextures() map[string]*SubTexture {
 	m := map[string]*SubTexture{}
 	for _, st := range ta.SubTextures {
