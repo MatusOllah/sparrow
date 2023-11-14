@@ -11,3 +11,34 @@ Handy if you're making a game that uses Sparrow v2 or rewriting FNF in Go (like 
 * Decoding
 * Encoding
 * Image / Frame extracting
+
+## Basic Usage
+
+```go
+package main
+
+import (
+    "image/png"
+    "github.com/MatusOllah/sparrow"
+)
+
+func main() {
+    // Here you can use any png & atlas, I'm using the awesome BOYFRIEND.xml
+    img, err := png.Decode("BOYFRIEND.png")
+    if err != nil {
+        panic(err)
+    }
+
+    atlas, err := sparrow.ParseTextureAtlas("BOYFRIEND.xml")
+    if err != nil {
+        panic(err)
+    }
+
+    // This gets / extracts the BF HEY!!0025 frame
+    bfHey := atlas.MustGetSubTexture("BF HEY!!0025")
+    bfHeyImg := bfHey.MustImage(img)
+
+    // This returns all frames as a map
+    frames := atlas.EnumerateSubTextures()
+}
+```
