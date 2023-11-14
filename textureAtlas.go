@@ -1,9 +1,15 @@
 package sparrow
 
 import (
+	"cmp"
 	"encoding/xml"
+	"errors"
 	"io/fs"
+	"log/slog"
+	"slices"
 )
+
+var ErrSubTextureDoesNotExist error = errors.New("subtexture does not exist")
 
 type TextureAtlas struct {
 	ImagePath   string        `xml:"imagePath,attr"`
@@ -38,6 +44,29 @@ func ParseTextureAtlasFromFS(fsys fs.FS, path string) (*TextureAtlas, error) {
 	}
 
 	return atlas, nil
+}
+
+// GetSubTexture finds and returns a SubTexture with the specified name.
+func (ta *TextureAtlas) GetSubTexture(name string) (*SubTexture, error) {
+	i, ok := slices.BinarySearchFunc(ta.SubTextures, &SubTexture{Name: name}, func(st1, st2 *SubTexture) int {
+		return cmp.Compare(st1.Name, st2.Name)
+	})
+	if !ok {
+		return nil, ErrSubTextureDoesNotExist
+	}
+
+	return ta.SubTextures[i], nil
+}
+
+// MustGetSubTexture simplay calls GetSubTexture and returns nil if an error occurs.
+func (ta *TextureAtlas) MustGetSubTexture(name string) *SubTexture {
+	st, err := ta.GetSubTexture(name)
+	if err != nil {
+		slog.Error(err.Error())
+		return nil
+	}
+
+	return st
 }
 
 // Encode encodes a TextureAtlas as XML.
