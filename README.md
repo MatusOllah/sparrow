@@ -1,6 +1,7 @@
 # sparrow
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/MatusOllah/sparrow.svg)](https://pkg.go.dev/github.com/MatusOllah/sparrow)
+[![Go Report Card](https://goreportcard.com/badge/github.com/MatusOllah/sparrow)](https://goreportcard.com/report/github.com/MatusOllah/sparrow)
 
 **sparrow** is a Sparrow v2 texture atlas (PNG and XML pair, the same format that FNF uses) library for Go.
 
