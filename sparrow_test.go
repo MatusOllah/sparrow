@@ -46,6 +46,36 @@ func TestTextureAtlas(t *testing.T) {
 	}
 }
 
+func TestEnumerateSubTextures(t *testing.T) {
+	boyfriendXML, err := os.ReadFile("testdata/BOYFRIEND.xml")
+	if err != nil {
+		t.Error(err)
+	}
+
+	bf, err := ParseTextureAtlas(boyfriendXML)
+	if err != nil {
+		t.Error(err)
+	}
+
+	expectedBFHey := &SubTexture{
+		Name:        "BF HEY!!0025",
+		X:           6216,
+		Y:           509,
+		Width:       414,
+		Height:      412,
+		FrameX:      -1,
+		FrameY:      -6,
+		FrameWidth:  415,
+		FrameHeight: 418,
+	}
+
+	bfHey := bf.EnumerateSubTextures()["BF HEY!!0025"]
+
+	if *bfHey != *expectedBFHey {
+		t.Errorf("expected sub-texture %v, got %v\n", expectedBFHey, bfHey)
+	}
+}
+
 func TestImage(t *testing.T) {
 	boyfriendXML, err := os.ReadFile("testdata/BOYFRIEND.xml")
 	if err != nil {
