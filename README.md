@@ -43,3 +43,9 @@ func main() {
     frames := atlas.EnumerateSubTextures()
 }
 ```
+
+## License
+
+MIT License
+
+FNF Boyfriend spritesheet - Apache License
